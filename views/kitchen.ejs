@@ -259,6 +259,44 @@
 	var init = new Switchery(elem_light);
 	elem_light.onchange = function() {
 		console.log(elem_light.checked);
+		if(elem_light.checked){
+			var json_data_on = {
+				"location": "kitchen",
+				"device": "bulb",
+				"operation":"on"
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+
+		}else{
+			var json_data_off = {
+				"location": "kitchen",
+				"device": "bulb",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+
+		}
 	};
 </script>
 
