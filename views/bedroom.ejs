@@ -248,7 +248,13 @@
 
     </div>
 </div>
-
+<div id="email" style="display: none">
+	<%= user.local.email %>
+</div>
+<script>
+	var email = document.getElementById('email').innerHTML;
+	console.log(email.trim());
+</script>
 <script>
 	// bed_room lights
 	var state_light = document.querySelector('.bed_room-lights').innerHTML;
@@ -260,9 +266,92 @@
 	elem_light.onchange = function() {
 		console.log(elem_light.checked);
 		if(elem_light.checked){
+				var json_data_on = {
+					"location": "bedroom",
+					"device": "bulb",
+					"operation":"on"
+				}
+
+						$.ajax({
+							type: 'POST',
+							data: JSON.stringify(json_data_on),
+					        contentType: 'application/json',
+	                        url: '/controlDevices',
+	                        success: function(data) {
+	                            console.log('success');
+	                            // console.log(JSON.stringify(data));
+	                        }
+	                });
+
+									var req_call_on = {
+			 		 				"email": email.trim(),
+			 		 				"property": "on"
+			 		 			}
+			 		 			console.log(req_call);
+			 		 			$.ajax({
+			 		 				type: 'PUT',
+			 		 				data: JSON.stringify(req_call_on),
+			 		 						contentType: 'application/json',
+			 		 										url: '/api/bedroom/lights',
+			 		 										success: function(res) {
+			 		 												console.log('success');
+			 		 												console.log(res);
+			 		 												window.location.assign('/bedroom');
+			 		 										}
+			 		 				});
+
+
+			}else{
+				var json_data_off = {
+					"location": "bedroom",
+					"device": "bulb",
+					"operation":"off"
+				}
+
+				$.ajax({
+					type: 'POST',
+					data: JSON.stringify(json_data_off),
+							contentType: 'application/json',
+											url: '/controlDevices',
+											success: function(data) {
+													console.log('success');
+													// console.log(JSON.stringify(data));
+											}
+							});
+				var req_call = {
+					"email": email.trim(),
+					"property": "off"
+				}
+				console.log(req_call);
+				$.ajax({
+					type: 'PUT',
+					data: JSON.stringify(req_call),
+							contentType: 'application/json',
+											url: '/api/bedroom/lights',
+											success: function(res) {
+													console.log('success');
+													console.log(res);
+													window.location.assign('/bedroom');
+											}
+							});
+			}
+	};
+</script>
+
+<script>
+	// bed_room ac
+	var state_ac = document.querySelector('.bed_room-ac').innerHTML;
+	var elem_ac = document.querySelector('.js-switch-2');
+	if( state_ac != 'on'){
+		 elem_ac.checked = false;
+	}
+	var init = new Switchery(elem_ac);
+	elem_ac.onchange = function() {
+		console.log(elem_ac.checked);
+		if(elem_ac.checked){
 			var json_data_on = {
 				"location": "bedroom",
-				"device": "bulb",
+				"device": "ac",
 				"operation":"on"
 			}
 
@@ -277,11 +366,28 @@
                         }
                 });
 
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/bedroom/ac',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/bedroom');
+		 		 										}
+		 		 				});
+
 
 		}else{
 			var json_data_off = {
 				"location": "bedroom",
-				"device": "bulb",
+				"device": "ac",
 				"operation":"off"
 			}
 
@@ -295,21 +401,23 @@
 												// console.log(JSON.stringify(data));
 										}
 						});
-
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/bedroom/ac',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/bedroom');
+										}
+						});
 		}
-	};
-</script>
-
-<script>
-	// bed_room ac
-	var state_ac = document.querySelector('.bed_room-ac').innerHTML;
-	var elem_ac = document.querySelector('.js-switch-2');
-	if( state_ac != 'on'){
-		 elem_ac.checked = false;
-	}
-	var init = new Switchery(elem_ac);
-	elem_ac.onchange = function() {
-		console.log(elem_ac.checked);
 	};
 </script>
 
@@ -325,6 +433,76 @@
 	var init = new Switchery(elem_fan);
 	elem_fan.onchange = function() {
 		console.log(elem_fan.checked);
+		if(elem_fan.checked){
+			var json_data_on = {
+				"location": "bedroom",
+				"device": "fan",
+				"operation":"on"
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/bedroom/fan',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/bedroom');
+		 		 										}
+		 		 				});
+
+
+		}else{
+			var json_data_off = {
+				"location": "bedroom",
+				"device": "fan",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/bedroom/fan',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/bedroom');
+										}
+						});
+		}
 	};
 </script>
 <!--   Core JS Files   -->

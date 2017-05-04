@@ -248,6 +248,51 @@
 
     </div>
 </div>
+<div id="email" style="display: none">
+	<%= user.local.email %>
+</div>
+<script>
+	var email = document.getElementById('email').innerHTML;
+	console.log(email.trim());
+</script>
+<script>
+	var toggleSwitch = function(room, device, operation){
+			var json_data_on = {
+				"location": room,
+				"device": device,
+				"operation":operation
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+								contentType: 'application/json',
+												url: '/controlDevices',
+												success: function(data) {
+														console.log('success');
+														// console.log(JSON.stringify(data));
+												}
+								});
+
+								var req_call_on = {
+								"email": email.trim(),
+								"property": operation
+							}
+							// console.log(req_call);
+							var dest_url = '/api/' + room +'/'+device
+							$.ajax({
+								type: 'PUT',
+								data: JSON.stringify(req_call_on),
+										contentType: 'application/json',
+														url:  dest_url,
+														success: function(res) {
+																console.log('success');
+																console.log(res);
+																window.location.assign('/' + room);
+														}
+								});
+	}
+</script>
 
 <script>
 	// hall lights
@@ -259,6 +304,11 @@
 	var init = new Switchery(elem_light);
 	elem_light.onchange = function() {
 		console.log(elem_light.checked);
+		if(elem_light.checked){
+			toggleSwitch('hall','lights','on');
+		}else{
+			toggleSwitch('hall','lights','off');
+		}
 	};
 </script>
 
@@ -272,6 +322,11 @@
 	var init = new Switchery(elem_ac);
 	elem_ac.onchange = function() {
 		console.log(elem_ac.checked);
+		if(elem_ac.checked){
+			toggleSwitch('hall','ac','on');
+		}else{
+			toggleSwitch('hall','ac','off');
+		}
 	};
 </script>
 
@@ -287,6 +342,11 @@
 	var init = new Switchery(elem_fan);
 	elem_fan.onchange = function() {
 		console.log(elem_fan.checked);
+		if(elem_fan.checked){
+			toggleSwitch('hall','fan','on');
+		}else{
+			toggleSwitch('hall','fan','off');
+		}
 	};
 </script>
 <!--   Core JS Files   -->

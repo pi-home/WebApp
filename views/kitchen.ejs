@@ -248,6 +248,13 @@
 
     </div>
 </div>
+<div id="email" style="display: none">
+	<%= user.local.email %>
+</div>
+<script>
+	var email = document.getElementById('email').innerHTML;
+	console.log(email.trim());
+</script>
 
 <script>
 	// Kitchen lights
@@ -277,6 +284,23 @@
                         }
                 });
 
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/kitchen/lights',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/kitchen');
+		 		 										}
+		 		 				});
+
 
 		}else{
 			var json_data_off = {
@@ -295,8 +319,24 @@
 												// console.log(JSON.stringify(data));
 										}
 						});
-
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/kitchen/lights',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/kitchen');
+										}
+						});
 		}
+
 	};
 </script>
 
@@ -310,6 +350,77 @@
 	var init = new Switchery(elem_ac);
 	elem_ac.onchange = function() {
 		console.log(elem_ac.checked);
+		if(elem_ac.checked){
+			var json_data_on = {
+				"location": "kitchen",
+				"device": "ac",
+				"operation":"on"
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/kitchen/ac',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/kitchen');
+		 		 										}
+		 		 				});
+
+
+		}else{
+			var json_data_off = {
+				"location": "kitchen",
+				"device": "ac",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/kitchen/ac',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/kitchen');
+										}
+						});
+		}
+
 	};
 </script>
 
@@ -325,6 +436,76 @@
 	var init = new Switchery(elem_fan);
 	elem_fan.onchange = function() {
 		console.log(elem_fan.checked);
+		if(elem_fan.checked){
+			var json_data_on = {
+				"location": "kitchen",
+				"device": "fan",
+				"operation":"on"
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/kitchen/fan',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/kitchen');
+		 		 										}
+		 		 				});
+
+
+		}else{
+			var json_data_off = {
+				"location": "kitchen",
+				"device": "fan",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/kitchen/fan',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/kitchen');
+										}
+						});
+		}
 	};
 </script>
 <!--   Core JS Files   -->

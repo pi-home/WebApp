@@ -1,3 +1,4 @@
+var User = require('../app/models/users');
 
 module.exports = function(app, passport) {
 
@@ -94,6 +95,61 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
+
+
+    app.put('/api/:room_id/:device_id', function(req, res){
+        var user = req.body.email;
+        var location = req.params.room_id;
+        var device = req.params.device_id;
+        var body = req.body.property;
+        var data = {};
+        if(location == 'kitchen'){
+          if(device == 'fan'){
+            data = {'property.kitchen.fan' : body}
+          }else if(device == 'lights'){
+            data = {'property.kitchen.lights' : body}
+          }else if(device == 'ac'){
+            data = {'property.kitchen.air_conditioner' : body}
+          }
+        }else if(location == 'hall'){
+          if(device == 'fan'){
+            data = {'property.hall.fan' : body}
+          }else if(device == 'lights'){
+            data = {'property.hall.lights' : body}
+          }else if(device == 'ac'){
+            data = {'property.hall.air_conditioner' : body}
+          }
+        }else if(location == 'livingroom'){
+          if(device == 'fan'){
+            data = {'property.living_room.fan' : body}
+          }else if(device == 'lights'){
+            data = {'property.living_room.lights' : body}
+          }else if(device == 'ac'){
+            data = {'property.living_room.air_conditioner' : body}
+          }
+        }else if(location == 'bedroom'){
+          if(device == 'fan'){
+            data = {'property.bed_room.fan' : body}
+          }else if(device == 'lights'){
+            data = {'property.bed_room.lights' : body}
+          }else if(device == 'ac'){
+            data = {'property.bed_room.air_conditioner' : body}
+          }
+        }
+
+        console.log(data);
+
+
+        User.findOneAndUpdate({ 'local.email' : user }, {$set: data}, {new: true}, function(error, doc){
+          if(error){
+            console.log(error);
+          }
+            // console.log(doc);
+            res.json(doc);
+            // res.redirect('/'+location);
+        });
+    });
+
 };
 
 // route middleware to make sure a user is logged in

@@ -215,7 +215,6 @@
                                         	<td>Lights</td>
                                         	<td class="living_room-lights"><%= user.property.living_room.lights%></td>
                                         	<td>
-
 																						<input type="checkbox" class="js-switch-1 js-check-living_room-lights" checked="false" style="display: none;" data-switchery="true" />
                                         	</td>
                                         </tr>
@@ -248,7 +247,13 @@
 
     </div>
 </div>
-
+<div id="email" style="display: none">
+	<%= user.local.email %>
+</div>
+<script>
+	var email = document.getElementById('email').innerHTML;
+	console.log(email.trim());
+</script>
 <script>
 	// living_room lights
 	var state_light = document.querySelector('.living_room-lights').innerHTML;
@@ -277,6 +282,23 @@
                         }
                 });
 
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/livingroom/lights',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/livingroom');
+		 		 										}
+		 		 				});
+
 
 		}else{
 			var json_data_off = {
@@ -295,7 +317,22 @@
 												// console.log(JSON.stringify(data));
 										}
 						});
-
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/livingroom/lights',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/livingroom');
+										}
+						});
 		}
 	};
 </script>
@@ -310,7 +347,76 @@
 	var init = new Switchery(elem_ac);
 	elem_ac.onchange = function() {
 		console.log(elem_ac.checked);
+		if(elem_ac.checked){
+			var json_data_on = {
+				"location": "livingroom",
+				"device": "ac",
+				"operation":"on"
+			}
 
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/livingroom/ac',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/livingroom');
+		 		 										}
+		 		 				});
+
+
+		}else{
+			var json_data_off = {
+				"location": "livingroom",
+				"device": "ac",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/livingroom/ac',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/livingroom');
+										}
+						});
+		}
 	};
 </script>
 
@@ -326,6 +432,76 @@
 	var init = new Switchery(elem_fan);
 	elem_fan.onchange = function() {
 		console.log(elem_fan.checked);
+		if(elem_fan.checked){
+			var json_data_on = {
+				"location": "livingroom",
+				"device": "fan",
+				"operation":"on"
+			}
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(json_data_on),
+				        contentType: 'application/json',
+                        url: '/controlDevices',
+                        success: function(data) {
+                            console.log('success');
+                            // console.log(JSON.stringify(data));
+                        }
+                });
+
+								var req_call_on = {
+		 		 				"email": email.trim(),
+		 		 				"property": "on"
+		 		 			}
+		 		 			console.log(req_call);
+		 		 			$.ajax({
+		 		 				type: 'PUT',
+		 		 				data: JSON.stringify(req_call_on),
+		 		 						contentType: 'application/json',
+		 		 										url: '/api/livingroom/fan',
+		 		 										success: function(res) {
+		 		 												console.log('success');
+		 		 												console.log(res);
+		 		 												window.location.assign('/livingroom');
+		 		 										}
+		 		 				});
+
+
+		}else{
+			var json_data_off = {
+				"location": "livingroom",
+				"device": "fan",
+				"operation":"off"
+			}
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(json_data_off),
+						contentType: 'application/json',
+										url: '/controlDevices',
+										success: function(data) {
+												console.log('success');
+												// console.log(JSON.stringify(data));
+										}
+						});
+			var req_call = {
+				"email": email.trim(),
+				"property": "off"
+			}
+			console.log(req_call);
+			$.ajax({
+				type: 'PUT',
+				data: JSON.stringify(req_call),
+						contentType: 'application/json',
+										url: '/api/livingroom/fan',
+										success: function(res) {
+												console.log('success');
+												console.log(res);
+												window.location.assign('/livingroom');
+										}
+						});
+		}
 	};
 </script>
 <!--   Core JS Files   -->
