@@ -1,0 +1,99 @@
+<html>
+<head>
+  <!-- <link href="public/assets/css/wickedpicker.css" rel="stylesheet"/> -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+
+</head>
+<body>
+<div class="col-md-6 col-md-offset-3">
+
+
+<div class="container" style="background: lightgray;
+    padding: 15px;
+    border-radius: 4px;
+    padding-top: 5px;">
+  <form onsubmit="getTime()" id="pref_form">
+    <h2 style="text-align: center; font-weight: 600">Create your own preference rules</h2>
+    <div class="form-group">
+      <label for="room">Room</label>
+      <select class="form-control" id="room">
+        <option value="Hall">Hall</option>
+        <option value="Living Room">Living Room</option>
+        <option value="Bed Room">Bed Room</option>
+        <option value="Kitchen">Kitchen</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="device">Devices</label>
+      <select class="form-control" id="device">
+        <option value="Lights">Lights</option>
+        <option value="Air Conditioner">Air Conditioner</option>
+        <option value="Fan">Fan</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="example-time-input" class="col-2 col-form-label">Time</label>
+      <div>
+        <input class="form-control" type="time"  id="example-time-input" required="true">
+      </div>
+    </div>
+    <fieldset class="form-group">
+      <legend>State</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="on" checked>
+          On
+        </label>
+      </div>
+      <div class="form-check  mb-2 mr-sm-2 mb-sm-0">
+      <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="off">
+          Off
+        </label>
+      </div>
+    </fieldset>
+    <button type="submit"  class="btn btn-primary">Submit</button>
+  </form>
+
+</div>
+
+</div>
+
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+  <!-- <script
+  src="http://code.jquery.com/jquery-1.11.3.js"
+  crossorigin="anonymous"></script> -->
+
+  <script>
+
+    var getTime = function(e){
+
+      event.preventDefault();
+      var e = document.getElementById("room");
+      var roomValue = e.options[e.selectedIndex].value;
+      // console.log(roomValue);
+      var f = document.getElementById("device");
+      var deviceValue = f.options[e.selectedIndex].value;
+      var h = document.getElementById("example-time-input");
+      var time = h.value;
+      var checkedValue = document.querySelector('.form-check-input:checked').value;
+      // console.log(checkedValue);
+      // console.log(time);
+      var data ={
+        "room" : roomValue,
+        "device" : deviceValue,
+        "state" : checkedValue,
+        "time" : time
+      }
+      console.log(data);
+      document.getElementById("pref_form").reset();
+    }
+  </script>
+  <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+</body>
+</html>

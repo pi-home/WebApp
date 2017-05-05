@@ -127,13 +127,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/profile">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/kitchen">
                         <i class="pe-7s-note2"></i>
                         <p>Kitchen Room</p>
@@ -171,7 +171,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Profile</a>
+                    <a class="navbar-brand" href="#">User Profile</a>
                 </div>
                 <div class="collapse navbar-collapse">
 
@@ -194,37 +194,133 @@
 
 
         <div class="content">
-					<div class="container-fluid">
-
+					<!-- <div class="container-fluid">
 						<div class="page-header text-center">
 								<h1><span class="fa fa-anchor"></span> Profile Page</h1>
 								<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 						</div>
-
 						<div class="row">
-
-								<!-- LOCAL INFORMATION -->
 								<div class="col-sm-6">
 										<div class="well">
 												<h3><span class="fa fa-user"></span> Local</h3>
-
 														<p>
 																<strong>email</strong>: <%= user.local.email %><br>
 																<strong>password</strong>: <%= user.local.password %>
 														</p>
-
 										</div>
 								</div>
+						</div>
+					</div> -->
+
+					<div class="container">
+						<h2 style="text-align:center; font-weight: 600">Existing Rules</h2>
+						<div class="content table-responsive table-full-width">
+								<table class="table table-hover table-bordered">
+										<thead>
+												<th>Room</th>
+											<th>Device</th>
+											<th>State</th>
+											<th>Time</th>
+											<th>Status</th>
+										</thead>
+										<tbody>
+											<% for(var i=0; i < user.preferences.length; i++) { %>
+											 <tr>
+												 <td><%= user.preferences[i].room %></td>
+												 <td><%= user.preferences[i].device %></td>
+												 <td>
+													 <%= user.preferences[i].state %>
+												 </td>
+												 <td><%= user.preferences[i].time %> hours</td>
+												 <td><%= user.preferences[i].active %></td>
+											 </tr>
+											<% } %>
+										</tbody>
+								</table>
 
 						</div>
+					  <form onsubmit="getTime()" id="pref_form" style="padding: 25px;border: 2px solid lightgray;border-radius: 5px;">
+					    <h2 style="text-align: center; font-weight: 600">Create your preference rules</h2>
+					    <div class="form-group">
+					      <label for="room">Room</label>
+					      <select class="form-control" id="room">
+					        <option value="Hall">Hall</option>
+					        <option value="Living Room">Living Room</option>
+					        <option value="Bed Room">Bed Room</option>
+					        <option value="Kitchen">Kitchen</option>
+					      </select>
+					    </div>
+					    <div class="form-group">
+					      <label for="device">Devices</label>
+					      <select class="form-control" id="device">
+					        <option value="Lights">Lights</option>
+					        <option value="Air Conditioner">Air Conditioner</option>
+					        <option value="Fan">Fan</option>
+					      </select>
+					    </div>
+					    <div class="form-group">
+					      <label for="example-time-input" class="col-2 col-form-label">Time</label>
+					      <div>
+					        <input class="form-control" type="time"  id="example-time-input" required="true">
+					      </div>
+					    </div>
+					    <fieldset class="form-group">
+					      <legend>State</legend>
+					      <div class="form-check">
+					        <label class="form-check-label">
+					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="on" checked>
+					          On
+					        </label>
+					      </div>
+					      <div class="form-check  mb-2 mr-sm-2 mb-sm-0">
+					      <label class="form-check-label">
+					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="off">
+					          Off
+					        </label>
+					      </div>
+					    </fieldset>
+					    <button type="submit"  class="btn btn-primary">Submit</button>
+					  </form>
 
 					</div>
         </div>
 
-
-
     </div>
 </div>
+<div id="email" style="display: none">
+	<%= user.local.email %>
+</div>
+<script>
+	var email = document.getElementById('email').innerHTML;
+	console.log(email.trim());
+</script>
+<script>
+
+	var getTime = function(e){
+
+		event.preventDefault();
+		var e = document.getElementById("room");
+		var roomValue = e.options[e.selectedIndex].value;
+		// console.log(roomValue);
+		var f = document.getElementById("device");
+		var deviceValue = f.options[e.selectedIndex].value;
+		var h = document.getElementById("example-time-input");
+		var time = h.value;
+		var checkedValue = document.querySelector('.form-check-input:checked').value;
+		// console.log(checkedValue);
+		// console.log(time);
+		var data ={
+			"user" : email.trim(),
+			"room" : roomValue,
+			"device" : deviceValue,
+			"state" : checkedValue,
+			"time" : time
+		}
+		console.log(data);
+		document.getElementById("pref_form").reset();
+	}
+</script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>

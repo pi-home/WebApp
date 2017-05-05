@@ -35,7 +35,8 @@ var userSchema = mongoose.Schema({
           "air_conditioner":   String,
           "fan":     String
         }
-    }
+    },
+    preferences : [{}]
 
 });
 
