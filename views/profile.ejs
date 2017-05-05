@@ -310,12 +310,27 @@
 		// console.log(checkedValue);
 		// console.log(time);
 		var data ={
-			"user" : email.trim(),
-			"room" : roomValue,
-			"device" : deviceValue,
-			"state" : checkedValue,
-			"time" : time
+			"email" : email.trim(),
+			"preference":{
+				"room" : roomValue,
+				"device" : deviceValue,
+				"state" : checkedValue,
+				"time" : time,
+				"active": "active"
+			}
 		}
+
+		$.ajax({
+			type: 'POST',
+			data: JSON.stringify(data),
+					contentType: 'application/json',
+									url: '/api/preferences',
+									success: function(data) {
+											console.log('success');
+											// console.log(JSON.stringify(data));
+											window.location.assign('/profile')
+									}
+					});
 		console.log(data);
 		document.getElementById("pref_form").reset();
 	}

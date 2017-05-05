@@ -96,6 +96,18 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    app.post('/api/preferences', function(req, res) {
+      var user = req.body.email;
+      var pref_data = req.body.preference;
+      User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
+        if(error){
+          console.log(error);
+        }
+          // console.log(doc);
+          res.json(doc);
+          // res.redirect('/'+location);
+      });
+    });
 
     app.put('/api/:room_id/:device_id', function(req, res){
         var user = req.body.email;
