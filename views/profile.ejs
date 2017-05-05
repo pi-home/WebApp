@@ -47,7 +47,9 @@
 	width: 60px;
 	height: 34px;
 	}
-
+	th{
+		font-weight: 600!Important
+	}
 	/* Hide default HTML checkbox */
 	.switch input {display:none;}
 
@@ -214,8 +216,9 @@
 
 					<div class="container">
 						<h2 style="text-align:center; font-weight: 600">Existing Rules</h2>
+						<br />
 						<div class="content table-responsive table-full-width">
-								<table class="table table-hover table-bordered">
+								<table class="table table-hover table-bordered" style="box-shadow: 10px 10px 5px #888; border:2px solid #ddd">
 										<thead>
 												<th>Room</th>
 											<th>Device</th>
@@ -232,7 +235,15 @@
 													 <%= user.preferences[i].state %>
 												 </td>
 												 <td><%= user.preferences[i].time %> hours</td>
-												 <td><%= user.preferences[i].active %></td>
+												 <td>
+													 <%= user.preferences[i].active %>
+													 <% if(user.preferences[i].active == 'active'){ %>
+													   <input class="toggleState" type="checkbox" checked style="margin-left :5px"/>
+													 <% } else{ %>
+													   <input class="toggleState" type="checkbox" style="margin-left :5px"/>
+													<% } %>
+
+												 </td>
 											 </tr>
 											<% } %>
 										</tbody>
@@ -240,7 +251,7 @@
 
 						</div>
 					  <form onsubmit="getTime()" id="pref_form" style="padding: 25px;border: 2px solid lightgray;border-radius: 5px;">
-					    <h2 style="text-align: center; font-weight: 600">Create your preference rules</h2>
+					    <h2 style="text-align: center; font-weight: 600">Create your own preferences</h2>
 					    <div class="form-group">
 					      <label for="room">Room</label>
 					      <select class="form-control" id="room">
@@ -268,13 +279,13 @@
 					      <legend>State</legend>
 					      <div class="form-check">
 					        <label class="form-check-label">
-					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="on" checked>
+					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="On" checked>
 					          On
 					        </label>
 					      </div>
 					      <div class="form-check  mb-2 mr-sm-2 mb-sm-0">
 					      <label class="form-check-label">
-					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="off">
+					          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Off">
 					          Off
 					        </label>
 					      </div>
@@ -350,6 +361,21 @@
 <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 <script src="assets/js/light-bootstrap-dashboard.js"></script>
 <script>
+
+var elems = Array.prototype.slice.call(document.querySelectorAll('.toggleState'));
+
+for(var i=0; i< elems.length; i++) {
+			elems[i].addEventListener("click", bindClick(i));
+}
+
+function bindClick(i) {
+	 return function(){
+						console.log("you clicked region number " + i);
+						console.log(i.value);
+						// updateValue(i)
+					};
+}
+
 
 </script>
 
