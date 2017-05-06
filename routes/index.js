@@ -1,9 +1,11 @@
 var controllers = require('./homeController');
 var dashboard = require('./dashboardRoutes')
+var test = require('./test');
 
 module.exports = function(app,passport) {
     controllers(app);
     dashboard(app,passport)
+    test(app);
     try{
         app.post('/apiCheck',function(req,res){
              console.log("Inside")
