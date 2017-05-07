@@ -8,7 +8,7 @@ module.exports = function (app) {
             var mqttClient = mqtt.connect(mqttConf.url);
             mqttClient.on('connect',function (message) {
 
-                mqttClient.publish('smartHomeTest', "Mobile Test");
+                mqttClient.publish('smartHomeTest', req.body.operation +" "+ req.body.location+req.body.device);
                 mqttClient.end()
             })
             res.setHeader('Content-Type', 'application/json');
