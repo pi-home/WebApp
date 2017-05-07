@@ -101,6 +101,7 @@ module.exports = function(app, passport) {
       var pref_data = req.body.preference;
       User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
         if(error){
+          console.log("Error in Preferences");
           console.log(error);
         }
           // console.log(doc);
