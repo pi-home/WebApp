@@ -99,17 +99,25 @@ module.exports = function(app, passport) {
     app.post('/api/preferences', function(req, res) {
         console.log("It hit me");
         console.log(req.body);
-      var user = req.body.email;
-      var pref_data = req.body.preference;
-      User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
-        if(error){
-          console.log("Error in Preferences");
-          console.log(error);
-        }
-          // console.log(doc);
+
+      try
+      {
+        
+          var user = req.body.email;
+           var pref_data = req.body.preference;
+            User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
+            if(error){
+                console.log("Error in Preferences");
+                console.log(error);
+                }
+                // console.log(doc);
           res.json(doc);
           // res.redirect('/'+location);
       });
+      } catch(err) {
+        res.status(500).json({"err":err})
+        console.error(err);
+      }
     });
 
     app.get('/api/preferences/:id',function(req,res){
