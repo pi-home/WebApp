@@ -97,6 +97,8 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/preferences', function(req, res) {
+        console.log("It hit me");
+        console.log(req.body);
       var user = req.body.email;
       var pref_data = req.body.preference;
       User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
