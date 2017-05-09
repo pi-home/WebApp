@@ -102,8 +102,9 @@ module.exports = function(app, passport) {
 
       try
       {
-        
-          var user = req.body.email;
+        if(req.body)
+        {   
+             var user = req.body.email;
            var pref_data = req.body.preference;
             User.findOneAndUpdate({ 'local.email' : user }, {$push:{"preferences": pref_data}}, {upsert: true}, function(error, doc){
             if(error){
@@ -114,6 +115,10 @@ module.exports = function(app, passport) {
           res.json(doc);
           // res.redirect('/'+location);
       });
+        } else {
+            res.status(500);
+        }
+         
       } catch(err) {
         res.status(500).json({"err":err})
         console.error(err);
