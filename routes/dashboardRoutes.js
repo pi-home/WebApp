@@ -112,6 +112,22 @@ module.exports = function(app, passport) {
       });
     });
 
+    app.get('/api/preferences/:id',function(req,res){
+        console.log(req.params.id);
+        myUser = User.findOne({ 'local.email':req.params.id},function(error,doc){
+            if(error){
+                console.log("Something Gusa Gusa")
+                console.log(error);
+                res.status(500)
+            } else {
+                console.log(doc.preferences)
+                res.json(doc.preferences)
+            }
+
+        })
+    })
+
+
     app.put('/api/:room_id/:device_id', function(req, res){
         var user = req.body.email;
         var location = req.params.room_id;
